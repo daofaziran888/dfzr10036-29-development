@@ -17,6 +17,15 @@ class CheckpointService(BaseModuleService):
     ACTION_RULES = {"触发恢复": "恢复中", "确认恢复": "已恢复", "标记失败": "恢复失败"}
     NEGATIVE_ACTIONS = []
 
+    def resolve_batch_recovery_scope(self, batch_no: str) -> dict[str, Any]:
+        """断点恢复根据同批分流明细确认单流/整组恢复范围。
+
+        数据流链路: commit_batch_detail -> checkpoint
+        """
+        from app.services.commit_batch import CommitBatchService
+
+        return CommitBatchService().resolve_recovery_scope(batch_no)
+
     def trigger_watermark_reset_and_backfill(self, entry_id: int) -> dict[str, Any]:
         """断点恢复后触发水位重置和回填任务。
 

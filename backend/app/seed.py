@@ -338,4 +338,8 @@ SEED_ROWS: dict[str, list[dict[str, Any]]] = {
             "合规标记": "合规",
         },
     ],
+    # 分流进度批次：多条数据流在同一个批次里整组接纳提交位点，
+    # 明细逐流记录日志坐标，缺位/不可比的流不得用其他来源补位点。
+    "commit_batch": [],
+    "commit_batch_detail": [],
 }

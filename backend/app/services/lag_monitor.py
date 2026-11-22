@@ -46,6 +46,16 @@ class LagMonitorService(BaseModuleService):
 
         return result
 
+    def read_batch_lag_metrics(self, batch_no: str) -> dict[str, Any]:
+        """延迟监控读取分流进度批次明细，逐条生成可比较/暂不可比指标。
+
+        数据流链路: commit_batch_detail -> lag_monitor
+        只采用批次明细里各流自己的日志坐标，缺位/失败流不以其他来源弥补。
+        """
+        from app.services.commit_batch import CommitBatchService
+
+        return CommitBatchService().build_lag_metrics(batch_no)
+
     def escalate_to_alert_and_health(self, entry_id: int) -> dict[str, Any] | None:
         """延迟达到告警阈值后，触发告警规则和健康评估。
 

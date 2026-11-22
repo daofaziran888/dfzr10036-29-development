@@ -12,6 +12,7 @@ from app.services.sink_writer import SinkWriterService
 from app.services.lag_monitor import LagMonitorService
 from app.services.ddl_handle import DdlHandleService
 from app.services.checkpoint import CheckpointService
+from app.services.commit_batch import CommitBatchDetailService, CommitBatchService
 from app.services.schema_evo import SchemaEvoService
 from app.services.dedup_stream import DedupStreamService
 from app.services.iceberg_commit import IcebergCommitService
@@ -36,6 +37,8 @@ SERVICES: dict[str, BaseModuleService] = {
     "lag_monitor": LagMonitorService(),
     "ddl_handle": DdlHandleService(),
     "checkpoint": CheckpointService(),
+    "commit_batch": CommitBatchService(),
+    "commit_batch_detail": CommitBatchDetailService(),
     "schema_evo": SchemaEvoService(),
     "dedup_stream": DedupStreamService(),
     "iceberg_commit": IcebergCommitService(),
